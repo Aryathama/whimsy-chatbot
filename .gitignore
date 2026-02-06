@@ -59,5 +59,7 @@ __pycache__/
 /letter_rl/test.py
 /letter_rl/train.py
 
+!/public/letter_rl/slide_policy_weights.json
+
 # Next.js / App
 /app
