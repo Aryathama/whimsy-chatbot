@@ -19,10 +19,12 @@ export function setupUI(onWordSubmit, onReset) {
     };
 
     updateUI('idle');
-
+    
     const processMessage = async () => {
         const word = input.value.toLowerCase().trim();
         if (word.length > 0 && !input.disabled) {
+            console.log("Memproses kata:", word);
+            
             input.disabled = true;
             updateUI('thinking');
             
@@ -38,15 +40,10 @@ export function setupUI(onWordSubmit, onReset) {
         }
     };
 
-    input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-        }
-    });
-
     if (chatForm) {
-        chatForm.addEventListener('submit', (e) => {
+        chatForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            processMessage();
+            await processMessage();
         });
     }
 
@@ -57,7 +54,10 @@ export function setupUI(onWordSubmit, onReset) {
         });
     }
 
-    document.addEventListener('click', () => {
-        if (window.innerWidth > 600) input.focus();
+    // Klik background untuk fokus (hanya Desktop)
+    document.addEventListener('click', (e) => {
+        if (window.innerWidth > 600 && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') {
+            input.focus();
+        }
     });
 }
