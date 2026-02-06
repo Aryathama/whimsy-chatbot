@@ -2,24 +2,11 @@ export function setupUI(onWordSubmit, onReset) {
     const input = document.querySelector('#word-input');
     const status = document.querySelector('#status');
     const resetBtn = document.querySelector('#reset-btn');
+    const chatForm = document.querySelector('#chat-form');
 
     input.autocomplete = 'off';
     input.spellcheck = false;
 
-    // User Input
-    // const updateUI = (state, word = '') => {
-    //     if (state === 'idle') {
-    //         status.innerHTML = `status: idle`;
-    //         status.style.color = '#1a1a1a'; // Warna standar
-    //     } else if (state === 'spawning') {
-    //         status.innerHTML = `status: spawning "${word}"...`;
-    //         status.style.color = '#1a1a1a';
-    //     } else if (state === 'active') {
-    //         status.innerHTML = `status: <span style="color: #2ecc71;">active</span>`;
-    //     }
-    // };
-
-    // LLM Input
     const updateUI = (state) => {
         if (state === 'idle') {
             status.innerHTML = `status: idle`;
@@ -33,40 +20,35 @@ export function setupUI(onWordSubmit, onReset) {
 
     updateUI('idle');
 
-    // User Input
-    // input.addEventListener('keydown', (e) => {
-    //     if (e.key === 'Enter') {
-    //         const word = input.value.toLowerCase().trim();
-    //         if (word.length > 0) {
-    //             updateUI('spawning', word);
-    //             onWordSubmit(word);
-                
-    //             // Pindah ke 'active' setelah animasi spawn selesai
-    //             setTimeout(() => {
-    //                 input.value = '';
-    //                 updateUI('active');
-    //             }, 1000);
-    //         }
-    //     }
-    // });
+    const processMessage = async () => {
+        const word = input.value.toLowerCase().trim();
+        if (word.length > 0 && !input.disabled) {
+            input.disabled = true;
+            updateUI('thinking');
+            
+            input.blur(); 
 
-    // LLM Input
-    input.addEventListener('keydown', async (e) => {
+            await onWordSubmit(word); 
+            
+            input.value = '';
+            input.disabled = false;
+            updateUI('active');
+            
+            if (window.innerWidth > 600) input.focus();
+        }
+    };
+
+    input.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
-            const word = input.value.toLowerCase().trim();
-            if (word.length > 0) {
-                input.disabled = true;
-                updateUI('thinking');
-                
-                await onWordSubmit(word); 
-                
-                input.value = '';
-                input.disabled = false;
-                updateUI('active');
-                input.focus();
-            }
         }
     });
+
+    if (chatForm) {
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            processMessage();
+        });
+    }
 
     if (resetBtn) {
         resetBtn.addEventListener('click', () => {
@@ -75,5 +57,7 @@ export function setupUI(onWordSubmit, onReset) {
         });
     }
 
-    document.addEventListener('click', () => input.focus());
+    document.addEventListener('click', () => {
+        if (window.innerWidth > 600) input.focus();
+    });
 }
