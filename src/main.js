@@ -277,7 +277,7 @@ function createCharAgent(char, index, targetX, spawnX) {
 async function start() {
     initVisuals();
     try {
-        const response = await fetch('./letter_rl/slide_policy_weights.json');
+        const response = await fetch('/letter_rl/slide_policy_weights.json');
         if (!response.ok) throw new Error("File JSON tidak ditemukan!");
         const weightsData = await response.json();
         const inference = new InferenceManager(weightsData);
