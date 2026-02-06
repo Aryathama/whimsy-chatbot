@@ -39,3 +39,25 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Python virtual environment
+venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# RL artifacts (yang kamu tulis tadi)
+/letter_rl/__pychache__
+/letter_rl/env.py
+/letter_rl/export_weights.py
+/letter_rl/logs.monitor.csv
+/letter_rl/plot_reward.py
+/letter_rl/requirements.txt
+/letter_rl/sr_policy_weights.json
+/letter_rl/sr_policy.zip
+/letter_rl/test.py
+/letter_rl/train.py
+
+# Next.js / App
+/app
