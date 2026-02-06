@@ -24,6 +24,9 @@ let currentFrustumSize = 15;
 
 let showGhosts = false;
 
+const INITIAL_HEIGHT = window.innerHeight;
+const INITIAL_WIDTH = window.innerWidth;
+
 const STATE = {
     SEARCH: 'SEARCH',
     SETTLE: 'SETTLE',
@@ -134,6 +137,14 @@ function setCameraTarget(word) {
 window.addEventListener('resize', () => {
     const width = window.innerWidth;
     const height = window.innerHeight;
+
+    // Keyboard Ignore
+    const heightDiff = Math.abs(height - INITIAL_HEIGHT);
+    const isKeyboardResize = heightDiff > 150 && width === INITIAL_WIDTH;
+
+    if (isKeyboardResize) {
+        return;
+    }
     
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
