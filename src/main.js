@@ -81,7 +81,7 @@ function initVisuals() {
     );
     camera.position.set(0, 0, 10);
     camera.lookAt(0, 0, 0);
-    const grid = new THREE.GridHelper(100, 100, '#e8e8e8', '#f0f0f0');
+    const grid = new THREE.GridHelper(1000, 1000, '#e8e8e8', '#f0f0f0');
     grid.rotation.x = Math.PI / 2;
     grid.position.set(0, 0, -0.5);
     scene.add(grid);
