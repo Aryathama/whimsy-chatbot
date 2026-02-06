@@ -1,7 +1,7 @@
 let messages = [
     { 
         role: "system", 
-        content: "your name is luna. talk in lower case only, no punctuation, max 30 chars, no numbers. be concise." 
+        content: "talk in lower case only, no punctuation, max 30 chars, no numbers. be concise." 
     }
 ];
 
