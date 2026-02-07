@@ -23,18 +23,18 @@ export function setupUI(onWordSubmit, onReset) {
     const processMessage = async () => {
         const word = input.value.toLowerCase().trim();
         if (word.length > 0 && !input.disabled) {
-            console.log("Memproses kata:", word);
+            // console.log("Memproses kata:", word);
             
-            input.disabled = true;
-            updateUI('thinking');
+            // input.disabled = true;
+            // updateUI('thinking');
             
             input.blur(); 
 
             await onWordSubmit(word); 
             
             input.value = '';
-            input.disabled = false;
-            updateUI('active');
+            // input.disabled = false;
+            // updateUI('active');
             
             if (window.innerWidth > 600) input.focus();
         }

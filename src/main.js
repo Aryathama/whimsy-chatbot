@@ -24,6 +24,10 @@ let currentFrustumSize = 15;
 
 let showGhosts = false;
 
+let dotCount = 0;
+let lastDotUpdate = 0;
+let isAiThinking = false;
+
 const INITIAL_HEIGHT = window.innerHeight;
 const INITIAL_WIDTH = window.innerWidth;
 
@@ -300,7 +304,9 @@ async function start() {
         setupUI(
             // (word) => { spawnWord(word); }, 
             async (word) => {
+                isAiThinking = true;
                 const aiAnswer = await getLLMResponse(word);
+                isAiThinking = false;
                 if (aiAnswer) {
                     console.log("LLM Answer:", aiAnswer);
                     spawnWord(aiAnswer); 
@@ -321,6 +327,13 @@ async function start() {
 
         const runAnimate = () => {
             requestAnimationFrame(runAnimate);
+
+            const now = Date.now();
+            if (now - lastDotUpdate > 300) {
+                dotCount = (dotCount + 1) % 4;
+                lastDotUpdate = now;
+            }
+            const dots = ".".repeat(dotCount);
             
             if (world && typeof RAPIER !== 'undefined') {
                 const aspect = window.innerWidth / window.innerHeight;
@@ -357,16 +370,17 @@ async function start() {
                     // Lock
                     if (agent.state === STATE.LOCK) {
                         if (agent.body.bodyType() !== RAPIER.RigidBodyType.KinematicPositionBased) {
+                            const currentPos = agent.body.translation();
+                            const currentRot = agent.body.rotation();
+
                             agent.body.setBodyType(RAPIER.RigidBodyType.KinematicPositionBased, true);
-                            agent.body.setLinvel({ x: 0, y: 0 }, true);
-                            agent.body.setAngvel(0, true);
-                            agent.body.setTranslation({ x: agent.targetX, y: agent.targetY }, true);
-                            agent.body.setRotation(0, true);
+                            
+                            agent.body.setTranslation({ x: currentPos.x, y: currentPos.y }, true);
+                            agent.body.setRotation(currentRot, true);
 
                             agent.mesh.traverse(child => {
                                 if (child.isMesh && child.material.emissive) {
                                     child.material.emissiveIntensity = 0;
-                                    child.material.emissive.setRGB(0, 0, 0);
                                 }
                             });
                         }
@@ -484,13 +498,13 @@ async function start() {
                         }
                     });
 
-                    const isStable = dist < 0.02 && 
-                                    Math.abs(vel.x) < 0.02 && 
-                                    Math.abs(rot) < 0.05;
+                    const isStable = dist < 0.2 && 
+                                    Math.abs(vel.x) < 0.1 && 
+                                    Math.abs(rot) < 0.1;
 
                     if (agent.state === STATE.SETTLE && isStable) {
                         agent.settleTimer = (agent.settleTimer || 0) + 16.6;
-                        if (agent.settleTimer > 300) {
+                        if (agent.settleTimer > 1000) {
                             agent.state = STATE.LOCK;
                         }
                     }
@@ -567,6 +581,33 @@ async function start() {
                         }
                     }
                 });
+
+                const inputElement = document.querySelector('#word-input');
+                const statusElement = document.querySelector('#status');
+
+                if (inputElement && statusElement) {
+                    const allLocked = agents.every(a => a.state === STATE.LOCK);
+                    const hasAgents = agents.length > 0;
+
+                    if (isAiThinking) {
+                        inputElement.disabled = true;
+                        inputElement.placeholder = `let it speak...`;
+                        statusElement.innerHTML = `status: <span style="color: #e67e22;">thinking${dots}</span>`;
+
+                    } else if (!allLocked && hasAgents) {
+                        inputElement.disabled = true;
+                        statusElement.innerHTML = `status: <span style="color: #3498db;">calibrating${dots}</span>`;
+
+                    } else if (allLocked && hasAgents) {
+                        inputElement.disabled = false;
+                        inputElement.placeholder = "type something...";
+                        statusElement.innerHTML = `status: <span style="color: #2ecc71;">active</span>`;
+
+                    } else {
+                        inputElement.disabled = false;
+                        statusElement.innerHTML = `status: idle`;
+                    }
+                }
             }
             renderer.render(scene, camera);
         };

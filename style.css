@@ -45,10 +45,20 @@ body {
     padding: 10px;
     transition: border-bottom 0.3s ease;
     min-height: 50px; 
+    transition: all 0.4s ease;
 }
 
 #word-input:focus {
     border-bottom: 1px solid #1a1a1a;
+}
+
+#word-input:disabled {
+    background-color: transparent;
+    color: #999;
+    cursor: not-allowed;
+    opacity: 0.7;
+    border-color: #ddd;
+    transition: all 0.4s ease;
 }
 
 .status-bar {
