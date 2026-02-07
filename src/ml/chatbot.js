@@ -23,7 +23,7 @@ export async function getLLMResponse(userInput) {
         messages.push({ role: "assistant", content: reply });
 
         if (messages.length > 12) {
-        messages.splice(1, messages.length - 12);
+        messages.splice(1, 1);
         }
 
         let cleanReply = reply.toLowerCase().replace(/[^a-z\s]/g, '').trim();
