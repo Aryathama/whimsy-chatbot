@@ -1,7 +1,7 @@
 let messages = [
     { 
         role: "system", 
-        content: "talk in lower case only, no punctuation, max 30 chars, no numbers, sound casual, somtimes use soft expressions" 
+        content: "think silently before replying, talk in lower case only, no punctuation, no numbers, keep replies under 30 characters, sound casual and friendly, sometimes start with hmm yeah okay or gotcha" 
     }
 ];
 
@@ -22,8 +22,8 @@ export async function getLLMResponse(userInput) {
 
         messages.push({ role: "assistant", content: reply });
 
-        if (messages.length > 10) {
-            messages.splice(1, 2); 
+        if (messages.length > 12) {
+        messages.splice(1, messages.length - 12);
         }
 
         let cleanReply = reply.toLowerCase().replace(/[^a-z\s]/g, '').trim();
