@@ -310,6 +310,7 @@ async function start() {
                 agents.forEach(agent => {
                     if (agent.mesh) scene.remove(agent.mesh);
                     if (agent.body) world.removeRigidBody(agent.body);
+                    if (agent.trails) agent.trails.forEach(t => scene.remove(t.mesh));
                 });
                 agents.length = 0;
                 const ghosts = [];
