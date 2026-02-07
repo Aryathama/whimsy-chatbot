@@ -313,7 +313,7 @@ async function start() {
                 });
                 agents.length = 0;
                 const ghosts = [];
-                scene.traverse(child => { if (child.name === "ghost") ghosts.push(child); });
+                scene.traverse(child => { if (child.name === "ghost" || child.name == "trail") ghosts.push(child); });
                 ghosts.forEach(g => scene.remove(g));
             }
         );
