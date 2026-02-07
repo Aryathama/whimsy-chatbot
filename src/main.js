@@ -158,7 +158,9 @@ function spawnWord(word) {
     setCameraTarget(word);
 
     const objectsToRemove = [];
-    scene.traverse(child => { if (child.name === "ghost" || child.name === "label") objectsToRemove.push(child); });
+    scene.traverse(child => { 
+        if (child.name === "ghost" || child.name === "label" || child.name === "trail") objectsToRemove.push(child); 
+    });
     objectsToRemove.forEach(obj => { scene.remove(obj); });
     agents.forEach(agent => {
         if (agent.mesh) scene.remove(agent.mesh);
@@ -535,6 +537,8 @@ async function start() {
                                 child.material.depthWrite = false;
                             }
                         });
+
+                        ghost.name = "trail"
                         
                         scene.add(ghost);
                         agent.trails.push({ mesh: ghost, life: 1.0 });
