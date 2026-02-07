@@ -17,7 +17,7 @@ export default async function handler(req, res) {
                 // model: "llama-3.1-8b-instant",
                 model: "llama-3.3-70b-versatile",
                 messages: messages,
-                temperature: 0.6,
+                temperature: 0.7,
                 stop: [".", "!", "?", "\n"] 
             })
         });
