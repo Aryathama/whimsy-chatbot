@@ -348,8 +348,8 @@ export function createLetterK(scene, world, pos) {
 
 export function createLetterL(scene, world, pos) {
     const body = createSolidBody(world, pos, 2.5, 0.1);
-    addCollider(world, RAPIER.ColliderDesc.cuboid(0.2, 0.2).setTranslation(0, -0.8).setDensity(20.0).setFriction(1.5), body);
-    addCollider(world, RAPIER.ColliderDesc.cuboid(0.2, 0.8).setTranslation(0, 0.2).setDensity(0.5), body);
+    addCollider(world, RAPIER.ColliderDesc.cuboid(0.2, 0.5).setTranslation(0, -0.5).setDensity(10.0).setFriction(1.5), body);
+    addCollider(world, RAPIER.ColliderDesc.cuboid(0.2, 0.5).setTranslation(0, 0.5).setDensity(0.5), body);
     const group = new THREE.Group();
     const mesh = new THREE.Mesh(new THREE.PlaneGeometry(0.4, 2.0), new THREE.MeshStandardMaterial({ color: COLOR }));
     group.add(mesh);
