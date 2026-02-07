@@ -545,28 +545,27 @@ async function start() {
                         agent.trailTimer = 0;
                     }
 
-                });
-                
-                for (let i = agent.trails.length - 1; i >= 0; i--) {
-                    const t = agent.trails[i];
-                    t.life -= 0.04;
-                    
-                    if (t.life <= 0) {
-                        scene.remove(t.mesh);
-                        t.mesh.traverse(c => { 
-                            if(c.isMesh) {
-                                c.geometry.dispose(); 
-                                c.material.dispose(); 
-                            }
-                        });
-                        agent.trails.splice(i, 1);
-                    } else {
-                        t.mesh.traverse(child => {
-                            if (child.isMesh) child.material.opacity = t.life * 0.2;
-                        });
-                        t.mesh.scale.multiplyScalar(0.98); 
+                    for (let i = agent.trails.length - 1; i >= 0; i--) {
+                        const t = agent.trails[i];
+                        t.life -= 0.04;
+                        
+                        if (t.life <= 0) {
+                            scene.remove(t.mesh);
+                            t.mesh.traverse(c => { 
+                                if(c.isMesh) {
+                                    c.geometry.dispose(); 
+                                    c.material.dispose(); 
+                                }
+                            });
+                            agent.trails.splice(i, 1);
+                        } else {
+                            t.mesh.traverse(child => {
+                                if (child.isMesh) child.material.opacity = t.life * 0.2;
+                            });
+                            t.mesh.scale.multiplyScalar(0.98); 
+                        }
                     }
-                }
+                });
             }
             renderer.render(scene, camera);
         };
