@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🤖 The Most Annoying Chatbot
+**Where every word is a physical struggle.**
 
-## Getting Started
+Welcome to the world's most inconvenient chat interface. This isn't just a chatbot; it's a test of patience. Powered by high-end AI and complex physics, it ensures that reading a simple reply takes 10x longer than it should.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ❓ Why is it annoying?
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* **Physics-Induced Lag:** Why read text instantly when you can watch it fall from the sky, bounce off the floor, and slowly "calibrate" itself for 5 seconds? (may take more)
+* **Aggressively Efficient AI:** Powered by **Llama 3.3 70B**, the bot has a very limited space to give you a reply.
+* **The Waiting Game:** You literally cannot type while the letters are moving. The UI locks you out because the physics are simply more important than your input.
+* **Drama in Every Letter:** Using **PPO (Reinforcement Learning)**, each letter has its own brain, yet they still struggle to stand upright, often resulting in "kicking" and "shaking" just to form a readable sentence.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Over-Engineered Tech Stack
 
-## Learn More
+We used an absurd amount of technology to make your life harder:
+* **Physics:** Rapier2D (making sure letters never stay still).
+* **AI:** Llama 3.3 70B via Groq (i'm not complaining, it's free).
+* **Intelligence:** PPO Inference (so the letters can "try" their best).
+* **Rendering:** Three.js (3D letters in a 2D world because why not?).
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🕹️ How to Suffer (Usage)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1.  **Type** a polite message.
+2.  **Watch** in frustration as the input disables itself.
+3.  **Stare** at the "calibrating..." status while the letters do gymnastics.
+4.  **Reset** the world when the chaos becomes too much.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🏗️ Local Development
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/your-username/lexicon-in-motion.git](https://github.com/your-username/lexicon-in-motion.git)
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Configure Environment Variables:**
+    Create a `.env` file in the root directory:
+    ```env
+    GROQ_API_KEY=your_groq_api_key_here
+    ```
+4.  **Launch Dev Server:**
+    ```bash
+    npm run dev
+    ```
+
+---
+
+*Built with ❤️ to specifically waste your time.*
